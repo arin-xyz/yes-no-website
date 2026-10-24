@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Little Question 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe0ec, #ffc2d7);
+    }
+
+    .card {
+      width: min(90%, 440px);
+      padding: 38px 24px;
+      border-radius: 25px;
+      background: white;
+      text-align: center;
+      box-shadow: 0 15px 45px #c94d782c;
+    }
+
+    .heart {
+      font-size: 65px;
+    }
+
+    h1 {
+      color: #e84378;
+      font-size: 28px;
+    }
+
+    p {
+      color: #777;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-top: 32px;
+      min-height: 55px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 30px;
+      padding: 14px 27px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #yes {
+      color: white;
+      background: #ff4381;
+    }
+
+    #no {
+      color: #444;
+      background: #eee;
+      z-index: 2;
+    }
+
+    #message {
+      margin-top: 24px;
+      color: #e84378;
+      font-size: 21px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="heart">💗</div>
+    <h1>Will you go on a date with me?</h1>
+    <p>Please choose wisely... 🙈</p>
+
+    <div class="buttons">
+      <button id="yes">Yes! ❤️</button>
+      <button id="no">No 😏</button>
+    </div>
+
+    <div id="message" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const message = document.getElementById("message");
+
+    function moveNoButton() {
+      const margin = 12;
+      const width = noButton.offsetWidth;
+      const height = noButton.offsetHeight;
+
+      const maxX = Math.max(margin, window.innerWidth - width - margin);
+      const maxY = Math.max(margin, window.innerHeight - height - margin);
+
+      // Choose a random position across the visible screen.
+      const x = margin + Math.random() * (maxX - margin);
+      const y = margin + Math.random() * (maxY - margin);
+
+      // Remove it from the normal button row so it can jump anywhere.
+      noButton.style.position = "fixed";
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    }
+
+    // Run away when the cursor approaches.
+    noButton.addEventListener("pointerenter", moveNoButton);
+
+    // Also move when clicked or tapped.
+    noButton.addEventListener("click", moveNoButton);
+    noButton.addEventListener("touchstart", moveNoButton, {
+      passive: true
+    });
+
+    yesButton.addEventListener("click", () => {
+      message.textContent = "Yayyy! I knew you'd say yes! 🥰💕";
+      yesButton.textContent = "Best decision! ❤️";
+    });
+  </script>
+</body>
+</html>
